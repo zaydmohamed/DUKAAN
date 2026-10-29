@@ -1,0 +1,14 @@
+{
+  "name": "dukaan-shop-system",
+  "version": "1.0.0",
+  "description": "Enterprise Shop Management System (MERN Stack)",
+  "scripts": {
+    "test": "cd backend && npm test",
+    "seed": "cd backend && npm run seed",
+    "start": "cd backend && npm start",
+    "server": "cd backend && npm start",
+    "client": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build"
+  }
+}
+
