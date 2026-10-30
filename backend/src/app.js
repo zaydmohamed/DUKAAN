@@ -65,17 +65,19 @@ app.use('/api/returns', returnsRoutes);
 // Centralized error handler
 app.use(errorHandler);
 
-// Serve static frontend in production if built
-const path = require('path');
-const fs = require('fs');
-const distPath = path.join(__dirname, '..', '..', 'frontend', 'dist');
+// Serve static frontend in local production if built and not on Vercel
+if (!process.env.VERCEL) {
+  const path = require('path');
+  const fs = require('fs');
+  const distPath = path.join(__dirname, '..', '..', 'frontend', 'dist');
 
-if (fs.existsSync(distPath)) {
-  app.use(express.static(distPath));
-  app.get('*', (req, res, next) => {
-    if (req.path.startsWith('/api')) return next();
-    res.sendFile(path.join(distPath, 'index.html'));
-  });
+  if (fs.existsSync(distPath)) {
+    app.use(express.static(distPath));
+    app.get('*', (req, res, next) => {
+      if (req.path.startsWith('/api')) return next();
+      res.sendFile(path.join(distPath, 'index.html'));
+    });
+  }
 }
 
 module.exports = app;
