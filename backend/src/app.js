@@ -25,7 +25,7 @@ const returnsRoutes = require('./routes/returnsRoutes');
 const app = express();
 
 // Security and utility middleware
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -64,20 +64,5 @@ app.use('/api/returns', returnsRoutes);
 
 // Centralized error handler
 app.use(errorHandler);
-
-// Serve static frontend in local production if built and not on Vercel
-if (!process.env.VERCEL) {
-  const path = require('path');
-  const fs = require('fs');
-  const distPath = path.join(__dirname, '..', '..', 'frontend', 'dist');
-
-  if (fs.existsSync(distPath)) {
-    app.use(express.static(distPath));
-    app.get('*', (req, res, next) => {
-      if (req.path.startsWith('/api')) return next();
-      res.sendFile(path.join(distPath, 'index.html'));
-    });
-  }
-}
 
 module.exports = app;
