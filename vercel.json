@@ -1,32 +1,16 @@
 {
-  "services": {
-    "backend": {
-      "path": "backend",
-      "installCommand": "npm install",
-      "buildCommand": "",
-      "runCommand": "node src/server.js",
-      "environment": {
-        "MONGODB_URI": "mongodb+srv://muzamilrooble_db_user:BTSCmUnmW77yoHAo@cluster0.fbwxkm2.mongodb.net/dukaan_shop_db?retryWrites=true&w=majority",
-        "JWT_SECRET": "dukaan_super_secret_jwt_key_2024_production",
-        "PORT": "5000",
-        "NODE_ENV": "production"
-      }
-    },
-    "frontend": {
-      "path": "frontend",
-      "installCommand": "npm install",
-      "buildCommand": "npm run build",
-      "outputDirectory": "dist"
-    }
-  },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "backend"
+      "source": "/api/(.*)",
+      "destination": "/api/index.js"
     },
     {
-      "src": "/(.*)",
-      "dest": "frontend"
+      "source": "/(.*)",
+      "destination": "/frontend/dist/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/frontend/dist/index.html"
     }
   ]
 }
