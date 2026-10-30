@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Enterprise Shop Management System (MERN Stack)",
   "scripts": {
-    "build": "npm run build --prefix frontend",
+    "build": "cd frontend && npm install && npm run build",
     "start": "node backend/src/server.js"
   },
   "dependencies": {
