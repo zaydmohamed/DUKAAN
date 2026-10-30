@@ -1,34 +1,19 @@
 {
   "version": 2,
-  "builds": [
+  "buildCommand": "npm run build --prefix frontend",
+  "outputDirectory": "frontend/dist",
+  "rewrites": [
     {
-      "src": "api/index.js",
-      "use": "@vercel/node"
+      "source": "/api/(.*)",
+      "destination": "/api/index.js"
     },
     {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/index.js"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/frontend/dist/assets/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/frontend/dist/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/frontend/dist/index.html"
-    }
-  ]
+  "env": {
+    "MONGODB_URI": "mongodb+srv://muzamilrooble_db_user:BTSCmUnmW77yoHAo@cluster0.fbwxkm2.mongodb.net/dukaan_shop_db?retryWrites=true&w=majority",
+    "JWT_SECRET": "dukaan_super_secret_jwt_key_2024_production"
+  }
 }
